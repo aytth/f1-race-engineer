@@ -1,0 +1,18 @@
+{
+  "name": "f1-race-engineer",
+  "private": true,
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "dev:api": "turbo dev --filter=@f1/api",
+    "dev:web": "turbo dev --filter=@f1/web",
+    "build:api": "turbo build --filter=@f1/api",
+    "build:web": "turbo build --filter=@f1/web"
+  },
+  "devDependencies": {
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.0"
+  },
+  "packageManager": "pnpm@9.15.0"
+}

@@ -1,0 +1,129 @@
+@import "tailwindcss";
+
+@theme {
+  --color-f1-bg: #0f0f13;
+  --color-f1-bg-secondary: #1a1a24;
+  --color-f1-bg-tertiary: #242434;
+  --color-f1-bg-elevated: #2a2a3a;
+  --color-f1-red: #e10600;
+  --color-f1-cyan: #00d4ff;
+  --color-f1-green: #00ff88;
+  --color-f1-yellow: #ffd700;
+  --color-f1-purple: #a855f7;
+  --color-f1-orange: #ff6b35;
+  --color-f1-text: #f0f0f0;
+  --color-f1-text-secondary: #8888aa;
+  --color-f1-text-muted: #555566;
+  --color-f1-border: #2a2a3a;
+  --color-tire-soft: #ff1e1e;
+  --color-tire-medium: #ffd700;
+  --color-tire-hard: #ffffff;
+  --color-tire-inter: #00cc00;
+  --color-tire-wet: #0066ff;
+  --font-f1: "Titillium Web", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-f1);
+  background-color: var(--color-f1-bg);
+  color: var(--color-f1-text);
+  overflow-x: hidden;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-f1-bg-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-f1-bg-tertiary);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-f1-text-muted);
+}
+
+/* Glow animations */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes slide-in-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes radio-static {
+  0% { background-position: 0 0; }
+  100% { background-position: 100% 100%; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-slide-in {
+  animation: slide-in-right 0.4s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+.glow-cyan {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
+}
+
+.glow-red {
+  box-shadow: 0 0 20px rgba(225, 6, 0, 0.3);
+}
+
+.glow-green {
+  box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
+}
+
+.glow-orange {
+  box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+}
+
+/* Glass panel effect */
+.glass-panel {
+  background: rgba(26, 26, 36, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(42, 42, 58, 0.6);
+  border-radius: 8px;
+}
+
+/* Radio static overlay effect */
+.radio-static-overlay {
+  position: relative;
+  overflow: hidden;
+}
+.radio-static-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+  animation: radio-static 0.1s steps(4) infinite;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.radio-static-overlay.active::after {
+  opacity: 1;
+}
