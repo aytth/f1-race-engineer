@@ -12,53 +12,38 @@ const BASE_INTERVAL = 3000;
 
 export function useReplay(sessionKey: number | null) {
   const intervalRef = useRef<ReturnType<typeof setInterval>>(undefined);
-  const store = useReplayStore;
+  const isReplayMode = useReplayStore((s) => s.isReplayMode);
+  const playing = useReplayStore((s) => s.playing);
+  const speed = useReplayStore((s) => s.speed);
+  const totalLaps = useReplayStore((s) => s.totalLaps);
 
   // Load timeline when entering replay mode
   useEffect(() => {
-    if (!sessionKey) return;
-
-    const state = store.getState();
-    if (!state.isReplayMode) return;
+    if (!sessionKey || !isReplayMode) return;
 
     fetchApi<LapTimelineResponse>('/replay/laps', { session_key: String(sessionKey) })
       .then(({ totalLaps, timeline }) => {
-        store.getState().setTimeline(timeline, totalLaps);
+        useReplayStore.getState().setTimeline(timeline, totalLaps);
       })
       .catch((err) => console.error('Failed to load replay timeline:', err));
-  }, [sessionKey, store.getState().isReplayMode]);
+  }, [sessionKey, isReplayMode]);
 
   // Auto-advance laps when playing
   useEffect(() => {
-    const unsubscribe = store.subscribe((state) => {
-      // Clear existing interval
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = undefined;
-      }
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = undefined;
+    }
 
-      if (state.playing && state.isReplayMode && state.totalLaps > 0) {
-        const interval = BASE_INTERVAL / state.speed;
-        intervalRef.current = setInterval(() => {
-          store.getState().nextLap();
-        }, interval);
-      }
-    });
-
-    // Initial check
-    const state = store.getState();
-    if (state.playing && state.isReplayMode && state.totalLaps > 0) {
-      const interval = BASE_INTERVAL / state.speed;
+    if (playing && isReplayMode && totalLaps > 0) {
+      const interval = BASE_INTERVAL / speed;
       intervalRef.current = setInterval(() => {
-        store.getState().nextLap();
+        useReplayStore.getState().nextLap();
       }, interval);
     }
 
     return () => {
-      unsubscribe();
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, []);
-
-  return store;
+  }, [playing, isReplayMode, speed, totalLaps]);
 }

@@ -37,7 +37,7 @@ export default function SessionPicker({ sessions, selected, onSelect }: SessionP
   });
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2">
+    <div className="flex flex-wrap justify-center gap-2">
       {sorted.map((session, i) => {
         const isSelected = selected?.session_key === session.session_key;
         const isRace = session.session_name === 'Race';
@@ -53,7 +53,7 @@ export default function SessionPicker({ sessions, selected, onSelect }: SessionP
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: i * 0.05 }}
             onClick={() => onSelect(session)}
-            className={`relative flex flex-col items-center gap-1 px-3 py-4 rounded-lg transition-all duration-200 ${
+            className={`relative flex flex-col items-center gap-1 px-3 py-4 rounded-lg transition-all duration-200 w-[100px] ${
               isSelected
                 ? 'bg-f1-red text-white shadow-[0_0_20px_rgba(225,6,0,0.3)]'
                 : isRace

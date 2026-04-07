@@ -127,3 +127,157 @@ body {
 .radio-static-overlay.active::after {
   opacity: 1;
 }
+
+/* Range slider styling for replay controls */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  border-radius: 2px;
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e10600;
+  cursor: pointer;
+  border: 2px solid #f0f0f0;
+  box-shadow: 0 0 6px rgba(225, 6, 0, 0.5);
+  transition: transform 0.15s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #e10600;
+  cursor: pointer;
+  border: 2px solid #f0f0f0;
+  box-shadow: 0 0 6px rgba(225, 6, 0, 0.5);
+}
+
+/* Shimmer loading animation */
+@keyframes shimmer {
+  0% { background-position: -200px 0; }
+  100% { background-position: calc(200px + 100%) 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  background-size: 200px 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* F1 racing stripe sweep — used on hero */
+@keyframes stripe-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.racing-stripe-sweep {
+  animation: stripe-sweep 3s ease-in-out infinite;
+}
+
+/* RPM-style bar fill */
+@keyframes rpm-fill {
+  0% { width: 0%; }
+  60% { width: 85%; }
+  80% { width: 70%; }
+  100% { width: 75%; }
+}
+
+.animate-rpm {
+  animation: rpm-fill 2s ease-out forwards;
+}
+
+/* Starting lights sequence */
+@keyframes light-on {
+  0%, 90% { opacity: 0.15; }
+  95%, 100% { opacity: 1; }
+}
+
+.starting-light {
+  animation: light-on 1s ease-in forwards;
+}
+
+/* Horizontal speed line */
+@keyframes speed-line {
+  0% { transform: translateX(-100%); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateX(300%); opacity: 0; }
+}
+
+.speed-line {
+  animation: speed-line 2.5s linear infinite;
+}
+
+/* Speed line from right */
+@keyframes speed-line-reverse {
+  0% { transform: translateX(100%); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateX(-300%); opacity: 0; }
+}
+
+.speed-line-reverse {
+  animation: speed-line-reverse 3s linear infinite;
+}
+
+/* Car streaks going down (left side) */
+@keyframes car-streak-down {
+  0% { top: -80px; opacity: 0; }
+  5% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.car-streak-down {
+  animation: car-streak-down 4s ease-in infinite;
+}
+
+/* Car streaks going up (right side) */
+@keyframes car-streak-up {
+  0% { bottom: -80px; opacity: 0; }
+  5% { opacity: 0.8; }
+  90% { opacity: 0.8; }
+  100% { bottom: 100%; opacity: 0; }
+}
+
+.car-streak-up {
+  animation: car-streak-up 4s ease-in infinite;
+}
+
+/* Tachometer spin */
+@keyframes tach-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.tach-spin {
+  animation: tach-spin 8s linear infinite;
+  transform-origin: center;
+}
+
+.tach-spin-reverse {
+  animation: tach-spin 6s linear infinite reverse;
+  transform-origin: center;
+}
+
+/* RPM indicator dots */
+@keyframes rpm-dot-pulse {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 1; }
+}
+
+.rpm-dot {
+  animation: rpm-dot-pulse 1.2s ease-in-out infinite;
+}

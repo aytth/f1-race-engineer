@@ -13,7 +13,9 @@ import TrackMap from '../components/track/TrackMap';
 import TelemetryPanel from '../components/telemetry/TelemetryPanel';
 import EngineerPanel from '../components/engineer/EngineerPanel';
 import StrategyPanel from '../components/strategy/StrategyPanel';
+import RaceControlPanel from '../components/racecontrol/RaceControlPanel';
 import PlaybackControls from '../components/replay/PlaybackControls';
+import DriverProfile from '../components/timing/DriverProfile';
 
 export default function DashboardPage() {
   const { sessionKey } = useParams<{ sessionKey: string }>();
@@ -53,6 +55,11 @@ export default function DashboardPage() {
               <TimingTower />
             </ErrorBoundary>
           }
+          driverProfile={
+            <ErrorBoundary fallback={<PanelError label="Driver" />}>
+              <DriverProfile sessionKey={sessionKeyNum} />
+            </ErrorBoundary>
+          }
           trackMap={
             <ErrorBoundary fallback={<PanelError label="Track Map" />}>
               <TrackMap sessionKey={sessionKeyNum} />
@@ -71,6 +78,11 @@ export default function DashboardPage() {
           strategy={
             <ErrorBoundary fallback={<PanelError label="Strategy" />}>
               <StrategyPanel />
+            </ErrorBoundary>
+          }
+          raceControl={
+            <ErrorBoundary fallback={<PanelError label="Race Control" />}>
+              <RaceControlPanel />
             </ErrorBoundary>
           }
         />
